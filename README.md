@@ -220,7 +220,7 @@ ksql http://ksqldb-server2:8088
 ksql> CREATE STREAM s2 (name VARCHAR, favorite_number INTEGER,favorite_color VARCHAR) WITH (kafka_topic='usertopic', value_format='avro');
 ```
 
-the producer program with avro serializer and SchemaRegistry [Program.cs](https://github.com/kayvansol/kafka-sink/blob/main/Program.cs) :
+the producer c# program with avro serializer and SchemaRegistry [Program.cs](https://github.com/kayvansol/kafka-sink/blob/main/Program.cs) :
 ```C#
 using AvroSpecific;
 using Confluent.Kafka;
@@ -455,7 +455,7 @@ Invoke-RestMethod -Method Post -Uri "http://localhost:8083/connectors" -ContentT
 
 ![alt text](https://raw.githubusercontent.com/kayvansol/kafka-sink/main/img/connect.jpeg?raw=true)
 
-and after inserting new data to the stream by c# programm, the defined kafka connector, sync data with related sql server table :
+and after inserting new data to the stream by c# program, the defined kafka connector, sync data with related sql server table :
 
 ![alt text](https://raw.githubusercontent.com/kayvansol/kafka-sink/main/img/synced.jpeg?raw=true)
 
