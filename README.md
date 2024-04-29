@@ -394,3 +394,68 @@ ksql> select * from s2;
 ```
 ![alt text](https://raw.githubusercontent.com/kayvansol/kafka-sink/main/img/ksql.jpeg?raw=true)
 
+go to [http://localhost:8080/ui/docker-kafka-server/topic/usertopic/data?sort=Oldest&partition=All](http://localhost:8080/ui/docker-kafka-server/topic/usertopic/data?sort=Oldest&partition=All)
+
+![alt text](https://raw.githubusercontent.com/kayvansol/kafka-sink/main/img/kafkatopic.jpeg?raw=true)
+
+and the schema created or altered by you at schema-registry that also you can create the schema by powershell script manually:
+```powershell
+$body = @{
+   schema = @{
+         "type": "record",
+         "name": "User",
+         "namespace": "confluent.io.examples.serialization.avro",
+         "fields": [
+           {
+             "name": "name",
+             "type": "string"
+           },
+           {
+             "name": "favorite_number",
+             "type": "int"
+           },
+           {
+             "name": "favorite_color",
+             "type": "string"
+           }
+         ],
+      }
+   }
+
+Invoke-RestMethod -Method Post -Uri "http://localhost:8081/subjects/usertopic-value/versions" -ContentType "application/vnd.schemaregistry.v1+json" -Body ($body | ConvertTo-Json)
+```
+![alt text](https://raw.githubusercontent.com/kayvansol/kafka-sink/main/img/schema.jpeg?raw=true)
+
+then create the kafka connect to sql server :
+```powershell
+$body = @{
+    name = "sql-server-sink"
+    config = @{
+        "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+        "table.name.format": "mytopic",
+        "connection.password": "your password",
+        "tasks.max": "1",
+        "topics": "usertopic",
+        "schema.registry.url": "http://schema-registry:8081",
+        "value.converter.schema.registry.url": "http://schema-registry:8081",
+        "auto.evolve": "true",
+        "connection.user": "sa",
+        "value.converter.schemas.enable": "true",
+        "name": "sql-server-sink",
+        "auto.create": "true",
+        "value.converter": "io.confluent.connect.avro.AvroConverter",
+        "connection.url": "jdbc:sqlserver://192.168.1.4:1433;databaseName=kafkaconnect",
+        "insert.mode": "insert",
+        "pk.mode": "none"
+    }
+}
+
+Invoke-RestMethod -Method Post -Uri "http://localhost:8083/connectors" -ContentType "application/json" -Body ($body | ConvertTo-Json)
+```
+
+![alt text](https://raw.githubusercontent.com/kayvansol/kafka-sink/main/img/connect.jpeg?raw=true)
+
+and after inserting new data to the stream by c# programm, the defined kafka connector, sync data with related sql server table :
+
+![alt text](https://raw.githubusercontent.com/kayvansol/kafka-sink/main/img/synced.jpeg?raw=true)
+
