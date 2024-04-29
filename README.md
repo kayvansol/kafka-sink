@@ -222,7 +222,7 @@ ksql http://ksqldb-server2:8088
 ksql> CREATE STREAM s2 (name VARCHAR, favorite_number INTEGER,favorite_color VARCHAR) WITH (kafka_topic='usertopic', value_format='avro');
 ```
 
-the producer c# program with avro serializer and SchemaRegistry [Program.cs](https://github.com/kayvansol/kafka-sink/blob/main/Program.cs) :
+the producer c# program with avro serializer and Schema Registry [Program.cs](https://github.com/kayvansol/kafka-sink/blob/main/Program.cs) :
 ```C#
 using AvroSpecific;
 using Confluent.Kafka;
