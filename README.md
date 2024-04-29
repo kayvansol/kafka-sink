@@ -1,4 +1,4 @@
-# Kafka Sink Connector SQL Server
+# Kafka Sink Connector for SQL Server
 
 Docker file for the connector that installing kafka-connect-jdbc library [Dockerfile](https://github.com/kayvansol/kafka-sink/blob/main/Dockerfile):
 ```bash
