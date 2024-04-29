@@ -400,7 +400,7 @@ go to [http://localhost:8080/ui/docker-kafka-server/topic/usertopic/data?sort=Ol
 
 ![alt text](https://raw.githubusercontent.com/kayvansol/kafka-sink/main/img/kafkatopic.jpeg?raw=true)
 
-and the schema created or altered by you at schema-registry that also you can create the schema by powershell script manually:
+and the schema created automatically or altered by you at schema-registry, also you can create the schema by powershell script manually:
 ```powershell
 $body = @{
    schema = @{
