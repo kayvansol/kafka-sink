@@ -1,6 +1,6 @@
 # Kafka Sink Connector SQL Server
 
-Docker file for the connector that installing kafka-connect-jdbc library :
+Docker file for the connector that installing kafka-connect-jdbc library [Dockerfile](https://github.com/kayvansol/kafka-sink/blob/main/Dockerfile):
 ```bash
 FROM docker.arvancloud.ir/confluentinc/cp-kafka-connect:latest
 
@@ -17,7 +17,7 @@ docker build -t docker.arvancloud.ir/confluentinc/cp-kafka-connect:latest .
 cd Kafka-Connect
 ```
 
-Docker Compose file :
+Docker Compose file [docker-compose.yml](https://github.com/kayvansol/kafka-sink/blob/main/docker-compose.yml) :
 ```yml
 ---
 version: '3'
@@ -194,4 +194,28 @@ networks:
 ```
 docker compose up
 ```
+Docker Desktop :
+
 ![alt text](https://raw.githubusercontent.com/kayvansol/kafka-sink/main/img/containers.png?raw=true)
+
+Create a kafka topic named **usertopic** :
+```bash
+docker exec -it kafka bash
+
+cd ..
+cd ..
+
+bin/kafka-topics --create --if-not-exists --topic usertopic --replication-factor=1 --partitions=3 --bootstrap-server kafka:9092
+```
+Create a kafka stream on top of the created topic with **avro** format :
+```bash
+docker exec -it ksqldb-cli2 bash
+
+ksql http://ksqldb-server2:8088
+
+CREATE STREAM s2 (name VARCHAR, favorite_number INTEGER,favorite_color VARCHAR) WITH (kafka_topic='usertopic', value_format='avro');
+```
+
+![alt text](https://raw.githubusercontent.com/kayvansol/kafka-sink/main/img/ksql.png?raw=true)
+
+
