@@ -430,7 +430,7 @@ Invoke-RestMethod -Method Post -Uri "http://localhost:8081/subjects/usertopic-va
 ```
 ![alt text](https://raw.githubusercontent.com/kayvansol/kafka-sink/main/img/schema.jpeg?raw=true)
 
-then create the kafka connect to sql server :
+then create a kafka connector to sql server :
 ```powershell
 $body = @{
     name = "sql-server-sink"
