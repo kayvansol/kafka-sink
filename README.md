@@ -200,6 +200,8 @@ Docker Desktop :
 
 ![alt text](https://raw.githubusercontent.com/kayvansol/kafka-sink/main/img/containers.png?raw=true)
 
+then check all the container's logs for being healthy.
+
 Create a kafka topic named **usertopic** :
 ```bash
 docker exec -it kafka bash
@@ -222,7 +224,7 @@ ksql http://ksqldb-server2:8088
 ksql> CREATE STREAM s2 (name VARCHAR, favorite_number INTEGER,favorite_color VARCHAR) WITH (kafka_topic='usertopic', value_format='avro');
 ```
 
-the producer c# program with avro serializer and Schema Registry [Program.cs](https://github.com/kayvansol/kafka-sink/blob/main/Program.cs) :
+The kafka producer c# program with avro serializer and Schema Registry [Program.cs](https://github.com/kayvansol/kafka-sink/blob/main/Program.cs) :
 ```C#
 using AvroSpecific;
 using Confluent.Kafka;
