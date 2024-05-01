@@ -16,7 +16,7 @@ docker build -t docker.arvancloud.ir/confluentinc/cp-kafka-connect:latest .
 ![alt text](https://raw.githubusercontent.com/kayvansol/kafka-sink/main/img/kafka-connect-with_jdbc.png?raw=true)
 
 ```bash
-cd Kafka-Connect
+cd kafka-connect
 ```
 
 Docker Compose file [docker-compose.yml](https://github.com/kayvansol/kafka-sink/blob/main/docker-compose.yml) :
