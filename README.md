@@ -215,7 +215,7 @@ cd ..
 
 bin/kafka-topics --create --if-not-exists --topic usertopic --replication-factor=1 --partitions=3 --bootstrap-server kafka:9092
 ```
-Create a kafka stream on top of the created topic with **avro** format :
+Create a kafka stream on top of the created topic with  [apache **avro**](https://avro.apache.org) format :
 ```bash
 docker exec -it ksqldb-cli2 bash
 
