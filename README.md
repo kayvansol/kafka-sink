@@ -228,7 +228,20 @@ ksql http://ksqldb-server2:8088
 ksql> CREATE STREAM s2 (name VARCHAR, favorite_number INTEGER,favorite_color VARCHAR) WITH (kafka_topic='usertopic', value_format='avro');
 ```
 
-The kafka producer c# program with avro serializer and Schema Registry [Program.cs](https://github.com/kayvansol/kafka-sink/blob/main/Program.cs) :
+
+Create a .net6 project with C# (named AvroSpecific) :
+
+In NuGet Package Manager type the below commands :
+```
+PM> NuGet\Install-Package Confluent.Kafka -Version 2.4.0
+
+PM> NuGet\Install-Package Confluent.SchemaRegistry -Version 2.4.0
+
+PM> NuGet\Install-Package Confluent.SchemaRegistry.Serdes.Avro -Version 2.4.0
+```
+
+The kafka producer C# program with **avro** serializer and Schema Registry [Program.cs](https://github.com/kayvansol/kafka-sink/blob/main/Program.cs) :
+
 ```C#
 using AvroSpecific;
 using Confluent.Kafka;
